@@ -12,14 +12,18 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int totalScore = 0;
-
   int _questionIndex = 0;
+  int _totalScore = 0;
 
   _answerQuestion(int score) {
-    totalScore += score;
+    _totalScore += score;
     setState(() => _questionIndex += 1);
   }
+
+  _resetQuiz() => setState(() {
+        _questionIndex = 0;
+        _totalScore = 0;
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +70,7 @@ class _MyAppState extends State<MyApp> {
                 questions,
                 _questionIndex,
               )
-            : const Result(),
+            : Result(_totalScore, _resetQuiz),
       ),
     );
   }
